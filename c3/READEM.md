@@ -22,13 +22,13 @@
 ~/repo/c3/openssl-pki$ ./init-ca.sh
 然后（用户）执行如下命令生成CSR：
 
-~/repo/c3/openssl-pki$ ./applier-generate-csr.sh
+~/repo/c3/openssl-pki$ ./applier-generate-csr.sh user
 最后（CA）执行如下命令完成证书的签发：
 
-~/repo/c3/openssl-pki$ ./ca-issue-cert.sh
+~/repo/c3/openssl-pki$ ./ca-issue-cert.sh user
 任何第三方可以验证一个用户证书是否指定的CA所签发：
 
-~/repo/c3/openssl-pki$ ./verify-cert-signed-by-ca.sh
+~/repo/c3/openssl-pki$ ./verify-cert-signed-by-ca.sh user
 3、本地MSP配置
 在1#终端进入local-msp目录，生成MSP配置目录：
 
