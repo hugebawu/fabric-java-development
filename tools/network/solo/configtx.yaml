@@ -1,0 +1,26 @@
+Profiles:
+  TwoOrgsOrdererGenesis:
+    Orderer:
+      OrdererType: solo
+      Addresses:
+        - 127.0.0.1:7050
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - Name: Org1
+            ID: Org1MSP
+            MSPDir: ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp 
+          - Name: Org2
+            ID: Org2MSP
+            MSPDir: ./crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp
+
+  TwoOrgsChannel:
+    consortium: SampleConsortium
+    Application: 
+      Organizations:
+        - Name: Org1
+          ID: Org1MSP
+          MSPDir: ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp 
+        - Name: Org2
+          ID: Org2MSP
+          MSPDir: ./crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp

@@ -1,0 +1,178 @@
+#!/bin/bash
+
+echo "----------------------------------------------------------------------"
+echo "WIZ is a toolbox for Agile Development with Hyperledger Farbic"
+echo '
+         __      __._____________
+        /  \    /  \   \____    /
+        \   \/\/   /   | /     / 
+         \        /|   |/     /_ 
+          \__/\  / |___/_______ \
+               \/              \/     (c)Hubwiz.com 2016-2019
+'
+echo "----------------------------------------------------------------------"
+
+WIZ_HOME=`dirname $0`
+NETWORK_TEMPLATE=${WIZ_HOME}/network/1111
+CHAINCODE_TEMPLATE=${WIZ_HOME}/chaincode
+APPLICATION_TEMPLATE=${WIZ_HOME}/application
+SCRIPTS_TEMPLATE=${WIZ_HOME}/scripts
+
+
+list_commands(){
+  echo "Supported commands:"
+  echo "    help: show all supported commands"
+  echo "    init: initialize an empty directory with project template"
+  echo "    net: manage network configuration and launching"
+  echo "        start: start network"
+  echo "        reset: reset network msp and ledger configuration"
+  echo "    cc: manage chaincode launching in dev mode"
+  echo "        start: start chaincode"
+  echo "    ch: manage channel creation and chaincode deployment"
+  echo "        start: start channel and activate chaincode"
+  echo "    app: manage application launching"
+  echo "        start: start application"
+  echo "    admin: administrator shell"
+  echo "    stop: stop all wiz processes"
+}
+
+init_project_directory(){
+  if [ "$(ls -A .)" ];then
+    echo "ERROR: project directory is not empty!"
+    return 
+  fi
+  
+  echo "generating project skeleton..."
+  cp -r ${NETWORK_TEMPLATE} network
+  cp -r ${CHAINCODE_TEMPLATE} chaincode
+  cp -r ${APPLICATION_TEMPLATE} application
+  cp -r ${SCRIPTS_TEMPLATE} scripts
+  echo "1.0.0" > wiz.version
+  echo "done."
+}
+
+assert_project_directory(){
+  if [ ! -f wiz.version ];then
+    echo "ERROR: not in a wiz project directory"
+    exit 1
+  fi
+}
+
+if [ $# -eq 0 ];then
+  echo "USAGE:  wiz <command>"
+  list_commands
+  exit 1
+fi
+
+CMD=$1
+
+if [ "$CMD" = "help" ];then
+  list_commands
+  exit 0
+fi
+
+if [ "$CMD" = "init" ];then
+  echo "Initialize project directory..."
+  init_project_directory
+  exit 0
+fi
+
+if [ "$CMD" = "net" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz net start|reset"
+    exit 1
+  fi
+
+  assert_project_directory
+  
+  if [ "$2" = "reset" ];then
+    cd network
+    rm -rf crypto-config
+    rm -rf data
+    cryptogen generate --config=crypto-config.yaml
+    cd ..
+    echo "network reset."
+    exit 0
+  fi
+
+  if [ "$2" = "start" ];then
+	cd network
+    pwd
+    ../scripts/start-network.sh
+    cd ..
+    exit 0
+  fi
+  
+  echo "unsupported command: net $2"
+  exit 0
+fi
+
+if [ "$CMD" = "cc" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz cc start"
+    exit 1
+  fi 
+
+  assert_project_directory
+
+  if [ "$2"="start" ];then
+    cd chaincode
+    ./start.sh
+    cd ..
+    exit 0
+  fi
+
+  echo "unsupported command: cc $2"
+  exit 0
+fi
+
+if [ "$CMD" = "ch" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz ch start"
+    exit 1
+  fi 
+
+  assert_project_directory
+
+  if [ "$2"="start" ];then
+    cd network
+    ../scripts/start-channel.sh
+    cd ..
+    exit 0
+  fi
+
+  echo "unsupported command: ch $2"
+  exit 0
+fi
+
+if [ "$CMD" = "app" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz app start"
+    exit 1
+  fi 
+
+  assert_project_directory
+
+  if [ "$2"="start" ];then
+    cd application
+    ./start.sh
+    cd ..
+    exit 0
+  fi
+
+  echo "unsupported command: app $2"
+  exit 0
+fi
+
+if [ "$CMD" = "admin" ];then
+  assert_project_directory
+  cd network
+  ../scripts/admin-shell.sh
+  cd ..
+  exit 0
+fi
+
+if [ "$CMD" = "stop" ];then
+  echo "stopping all wiz processes.."
+  pkill wiz
+fi

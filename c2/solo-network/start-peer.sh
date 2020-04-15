@@ -1,0 +1,7 @@
+#!/bin/bash
+
+CORE_PEER_FILESYSTEMPATH=./data/peer \
+CORE_PEER_LISTENADDRESS=127.0.0.1:7051 \
+CORE_PEER_CHAINCODELISTENADDRESS=127.0.0.1:7052 \
+peer node start --peer-chaincodedev
+  

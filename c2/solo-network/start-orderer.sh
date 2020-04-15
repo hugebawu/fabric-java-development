@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ORDERER_GENERAL_GENESISMETHOD=file \
+ORDERER_GENERAL_GENESISFILE=./genesis.block \
+ORDERER_FILELEDGER_LOCATION=./data/orderer \
+orderer

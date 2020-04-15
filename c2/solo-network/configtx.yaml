@@ -1,0 +1,21 @@
+Profiles:
+  SampleInsecureSolo:
+    Orderer:
+      OrdererType: solo
+      Addresses:
+        - 127.0.0.1:7050
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - Name: SampleOrg
+            ID: SampleOrg
+            MSPDir: msp
+            
+  SampleSingleMSPChannel:
+    consortium: SampleConsortium
+    Application: 
+      Organizations:
+        - Name: SampleOrg
+          ID: SampleOrg
+          MSPDir: msp
+    

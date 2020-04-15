@@ -1,0 +1,35 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            87:cd:7d:ed:ed:f4:a6:ee:14:30:c5:60:1b:9c:d7:29
+    Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C=US, ST=California, L=San Francisco, O=org1.example.com, CN=ca.org1.example.com
+        Validity
+            Not Before: Mar 16 07:50:00 2019 GMT
+            Not After : Mar 13 07:50:00 2029 GMT
+        Subject: C=US, ST=California, L=San Francisco, CN=Admin@org1.example.com
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub: 
+                    04:bf:3b:93:05:3b:bd:60:d0:12:5f:9a:0c:8c:b5:
+                    0a:68:5c:35:6a:53:36:6a:58:47:c5:d3:86:0f:59:
+                    59:8f:1f:55:47:4e:92:ae:b7:c8:ce:fb:b4:7c:af:
+                    4a:eb:44:47:81:a4:38:a0:5e:06:5e:1a:e6:13:6b:
+                    52:f0:a8:4e:bc
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Authority Key Identifier: 
+                keyid:7A:78:F2:5A:27:EA:DC:12:20:C2:30:D9:8B:06:CF:E2:89:24:9D:4C:56:00:97:B8:C7:A7:6E:5E:3A:CC:4D:05
+
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:21:00:fb:ec:4f:a7:5c:5e:8b:1d:35:11:b7:22:4a:
+         6e:f5:4e:62:72:51:26:68:f1:e8:dc:95:fd:d9:97:4d:ef:d6:
+         26:02:20:03:cf:87:bd:c8:54:7d:47:a5:78:2b:5c:9b:a4:96:
+         f8:6a:80:b7:fe:ac:a2:b1:38:40:cf:67:0e:40:26:3c:06

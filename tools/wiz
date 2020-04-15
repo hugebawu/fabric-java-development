@@ -1,0 +1,187 @@
+#!/bin/bash
+
+echo "----------------------------------------------------------------------"
+echo "WIZ is a toolbox for Agile Development with Hyperledger Farbic"
+echo '
+         __      __._____________
+        /  \    /  \   \____    /
+        \   \/\/   /   | /     / 
+         \        /|   |/     /_ 
+          \__/\  / |___/_______ \
+               \/              \/     (c)Hubwiz.com 2016-2019
+'
+echo "----------------------------------------------------------------------"
+
+# 在命令行状态下单纯执行cd `dirname $0` 是毫无意义的。因为他返回当前路径的"."。
+# 这个命令写在脚本文件里才有作用，他返回这个脚本文件放置的目录，
+# 并可以根据这个目录来定位所要运行程序的相对位置（绝对位置除外）。
+# $0：当前Shell程序的文件名
+# dirname $0，获取当前Shell程序的路径
+# cd `dirname $0`，进入当前Shell程序的目录
+# 被“倒引号”括起来表示里面需要执行的是命令
+WIZ_HOME=`dirname $0`
+echo $WIZ_HOME
+NETWORK_TEMPLATE=${WIZ_HOME}/network/1111 # $表示{}内的是变量
+CHAINCODE_TEMPLATE=${WIZ_HOME}/chaincode
+APPLICATION_TEMPLATE=${WIZ_HOME}/application
+SCRIPTS_TEMPLATE=${WIZ_HOME}/scripts
+
+
+list_commands(){
+  echo "Supported commands:"
+  echo "    help: show all supported commands"
+  echo "    init: initialize an empty directory with project template"
+  echo "    net: manage network configuration and launching"
+  echo "        start: start network"
+  echo "        reset: reset network msp and ledger configuration"
+  echo "    cc: manage chaincode launching in dev mode"
+  echo "        start: start chaincode"
+  echo "    ch: manage channel creation and chaincode deployment"
+  echo "        start: start channel and activate chaincode"
+  echo "    app: manage application launching"
+  echo "        start: start application"
+  echo "    admin: administrator shell"
+  echo "    stop: stop all wiz processes"
+}
+
+init_project_directory(){
+  # $( ) 与` ` (反引号) 都是用来做命令替换用(command substitution)的。
+  if [ "$(ls -A .)" ];then # 判断目录下是否已经有文件或目录存在，-A 同 -a ，但不列出 "." (目前目录) 及 ".." (父目录)
+    echo "ERROR: project directory is not empty!"
+    return 
+  fi
+  
+  echo "generating project skeleton..."
+  cp -r ${NETWORK_TEMPLATE} network # 若给出的源文件是一个目录文件，此时将复制该目录下所有的子目录和文件。
+  cp -r ${CHAINCODE_TEMPLATE} chaincode
+  cp -r ${APPLICATION_TEMPLATE} application
+  cp -r ${SCRIPTS_TEMPLATE} scripts
+  echo "1.0.0" > wiz.version
+  echo "done."
+}
+
+assert_project_directory(){
+  if [ ! -f wiz.version ];then
+    echo "ERROR: not in a wiz project directory"
+    exit 1
+  fi
+}
+
+if [ $# -eq 0 ];then
+  echo "USAGE:  wiz <command>"
+  list_commands
+  exit 1
+fi
+
+CMD=$1
+
+if [ "$CMD" = "help" ];then
+  list_commands
+  exit 0
+fi
+
+if [ "$CMD" = "init" ];then
+  echo "Initialize project directory..."
+  init_project_directory
+  exit 0
+fi
+
+if [ "$CMD" = "net" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz net start|reset"
+    exit 1
+  fi
+
+  assert_project_directory
+  
+  if [ "$2" = "reset" ];then
+    cd network
+    rm -rf crypto-config
+    rm -rf data
+    cryptogen generate --config=crypto-config.yaml
+    cd ..
+    echo "network reset."
+    exit 0
+  fi
+
+  if [ "$2" = "start" ];then
+	cd network
+    pwd
+    ../scripts/start-network.sh
+    cd ..
+    exit 0
+  fi
+  
+  echo "unsupported command: net $2"
+  exit 0
+fi
+
+if [ "$CMD" = "cc" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz cc start"
+    exit 1
+  fi 
+
+  assert_project_directory
+
+  if [ "$2"="start" ];then
+    cd chaincode
+    ./start.sh
+    cd ..
+    exit 0
+  fi
+
+  echo "unsupported command: cc $2"
+  exit 0
+fi
+
+if [ "$CMD" = "ch" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz ch start"
+    exit 1
+  fi 
+
+  assert_project_directory
+
+  if [ "$2"="start" ];then
+    cd network
+    ../scripts/start-channel.sh
+    cd ..
+    exit 0
+  fi
+
+  echo "unsupported command: ch $2"
+  exit 0
+fi
+
+if [ "$CMD" = "app" ];then
+  if [ $# -lt 2 ];then
+    echo "USAGE: wiz app start"
+    exit 1
+  fi 
+
+  assert_project_directory
+
+  if [ "$2"="start" ];then
+    cd application
+    ./start.sh
+    cd ..
+    exit 0
+  fi
+
+  echo "unsupported command: app $2"
+  exit 0
+fi
+
+if [ "$CMD" = "admin" ];then
+  assert_project_directory
+  cd network
+  ../scripts/admin-shell.sh
+  cd ..
+  exit 0
+fi
+
+if [ "$CMD" = "stop" ];then
+  echo "stopping all wiz processes.."
+  pkill wiz
+fi
