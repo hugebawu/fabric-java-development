@@ -1,2 +1,11 @@
 c3/local-msp/crypto-config/*
 c3/openssl-pki/artifact/*
+c3/channel-msp/artifact/*
+c3/channel-network/crypoto-config/*
+c3/channel-msp/network/crypto-config/*
+c3/channel-msp/network/data/*
+c3/channel-msp/network/log/*
+c3/channel-policy/artifact/*
+c3/channel-policy/network/crypto-config/*
+c3/channel-policy/network/data/*
+c3/channel-policy/network/log/*
