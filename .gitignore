@@ -20,3 +20,18 @@ c4/standard-channel-config/artifact/*
 c4/standard-channel-config/crypto-config/*
 c4/standard-channel-config/data/*
 
+c4/config-update-value/chaincode/.gradle/*
+c4/config-update-value/chaincode/build/*
+
+c4/config-update-value/network/artifact/*
+c4/config-update-value/network/crypto-config/*
+c4/config-update-value/network/data/*
+c4/config-update-value/network/log/*
+
+c4/view-config-group/artifact/*
+c4/view-config-group/network/crypto-config/*
+c4/view-config-group/network/data/*
+c4/view-config-group/network/log/*
+
+c4/view-config-update/artifact/*
+c4/view-config-update/network/crypto-config/*
