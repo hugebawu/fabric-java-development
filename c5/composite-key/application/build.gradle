@@ -1,0 +1,37 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.3'
+    id 'java'
+    id 'application'
+}
+
+group 'org.hyperledger.fabric-chaincode-java'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+	compile group: 'org.hyperledger.fabric-sdk-java', name: 'fabric-sdk-java', version: '1.4.1'
+}
+
+
+sourceSets {
+	main.java.srcDirs += '.'
+}
+
+shadowJar {
+    baseName = 'app'
+    version = null
+    classifier = null
+
+    manifest {
+        attributes 'Main-Class': 'com.hubwiz.demo.App'
+    }
+}
+
+
+mainClassName = "com.hubwiz.demo.App"

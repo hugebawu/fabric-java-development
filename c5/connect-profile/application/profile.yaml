@@ -1,0 +1,25 @@
+version: '1.0'
+name: test
+client:
+  organization: Org1
+channels:
+  ch1: 
+    orderers: 
+      - orderer1
+    peers:
+      peer1: 
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+organizations:
+  Org1: 
+    mspid: Org1MSP
+    peers:
+      - peer1
+orderers:
+  orderer1:
+    url: grpc://127.0.0.1:7050
+peers:
+  peer1:
+    url: grpc://127.0.0.1:7051

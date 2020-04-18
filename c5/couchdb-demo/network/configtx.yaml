@@ -1,0 +1,20 @@
+Profiles:
+  OrdererGenesis:
+    Orderer:
+      OrdererType: solo
+      Addresses:
+        - 127.0.0.1:7050
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+          - Name: Org1
+            ID: Org1MSP
+            MSPDir: ./crypto-config/peerOrganizations/org1.example.com/msp 
+
+  DefaultChannel:
+    consortium: SampleConsortium
+    Application: 
+      Organizations:
+        - Name: Org1
+          ID: Org1MSP
+          MSPDir: ./crypto-config/peerOrganizations/org1.example.com/msp 

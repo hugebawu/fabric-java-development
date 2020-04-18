@@ -1,0 +1,39 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.3'
+    id 'java'
+    id 'application'
+}
+
+group 'org.hyperledger.fabric-chaincode-java'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.hyperledger.fabric-chaincode-java', name: 'fabric-chaincode-shim', version: '1.4.0'
+    compile group: 'org.json', name: 'json', version: '20180813'  
+}
+
+
+sourceSets {
+	main.java.srcDirs += '.'
+}
+
+shadowJar {
+    baseName = 'chaincode'
+    version = null
+    classifier = null
+
+    manifest {
+        attributes 'Main-Class': 'com.hubwiz.demo.WizChaincode'
+    }
+}
+
+application {
+  	mainClassName = "com.hubwiz.demo.WizChaincode"
+}
