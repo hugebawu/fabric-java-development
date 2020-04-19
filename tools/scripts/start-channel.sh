@@ -19,7 +19,7 @@ MSPDIR=crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example
 MSPID=Org1MSP
   
 init_channel(){
-  configtxgen -outputCreateChannelTx ${ARTIFACT}/${CHANNEL}.tx -profile DefaultChannel -channelID ${CHANNEL} 
+  configtxgen -outputCreateChannelTx ${ARTIFACT}/${CHANNEL}.tx -profile DefaultChannel -channelID ${CHANNEL}
   
   CORE_PEER_MSPCONFIGPATH=${MSPDIR} \
   CORE_PEER_LOCALMSPID=${MSPID}  \
@@ -31,14 +31,14 @@ join_channel(){
   CORE_PEER_MSPCONFIGPATH=${MSPDIR} \
   CORE_PEER_LOCALMSPID=${MSPID}  \
   CORE_PEER_ADDRESS=${PEER} \
-  peer channel join -b ${ARTIFACT}/${CHANNEL}.block  -o ${ORDERER} 
+  peer channel join -b ${ARTIFACT}/${CHANNEL}.block  -o ${ORDERER}
 }
 
 install_chaincode(){
   CORE_PEER_MSPCONFIGPATH=${MSPDIR} \
   CORE_PEER_LOCALMSPID=${MSPID}  \
   CORE_PEER_ADDRESS=${PEER} \
-  peer chaincode install -n ${CHAINCODE} -v 0 -l node -p ${PROJECT}/chaincode  
+  peer chaincode install -n ${CHAINCODE} -v 0 -l java -p ${PROJECT}/chaincode
 }
 
 instantiate_chaincode(){

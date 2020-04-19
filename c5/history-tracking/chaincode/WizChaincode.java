@@ -79,7 +79,7 @@ public class WizChaincode extends ChaincodeBase {
       JSONObject jo = new JSONObject();
       jo.put("txid",m.getTxId());
       jo.put("value",m.getStringValue());
-      jo.put("timestamp",m.getTimeStamp().toString());
+      jo.put("timestamp",m.getTimestamp().toString());
       jo.put("deleted",Boolean.valueOf(m.isDeleted()));
       ja.put(jo);
     }

@@ -36,3 +36,12 @@ c4/config-update-value/network/log/*
 c4/config-update-value/artifact/*
 c4/config-update-value/chaincode/.gradle/*
 c4/config-update-value/chaincode/build/*
+
+c5/history-tracking/chaincode/.gradle/*
+c5/history-tracking/chaincode/build/*
+c5/history-tracking/network/artifact/*
+c5/history-tracking/network/crypto-config/*
+c5/history-tracking/network/data/*
+c5/history-tracking/network/log/*
+c5/history-tracking/application/.gradle/*
+c5/history-tracking/application/build/*

@@ -52,7 +52,7 @@ public class App{
     client.setUserContext(this.user);
     
     Channel channel = client.newChannel("ch1");
-    Peer peer = client.newPeer("peer1`","grpc://127.0.0.1:7051");
+    Peer peer = client.newPeer("peer1","grpc://127.0.0.1:7051");
     channel.addPeer(peer);
     Orderer orderer = client.newOrderer("orderer1","grpc://127.0.0.1:7050");
     channel.addOrderer(orderer);
