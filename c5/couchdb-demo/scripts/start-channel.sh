@@ -38,7 +38,7 @@ install_chaincode(){
   CORE_PEER_MSPCONFIGPATH=${MSPDIR} \
   CORE_PEER_LOCALMSPID=${MSPID}  \
   CORE_PEER_ADDRESS=${PEER} \
-  peer chaincode install -n ${CHAINCODE} -v 0 -l node -p ${PROJECT}/chaincode  
+  peer chaincode install -n ${CHAINCODE} -v 0 -l java -p ${PROJECT}/chaincode  
 }
 
 instantiate_chaincode(){
