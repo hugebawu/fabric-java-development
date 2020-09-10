@@ -48,6 +48,10 @@ c4/view-config-group/network/log/*
 
 c4/view-config-update/artifact/*
 c4/view-config-update/network/crypto-config/*
+c4/view-config-update/network/data/*
+c4/view-config-update/network/log/*
+
+
 
 c4/config-update-value/network/artifact/*
 c4/config-update-value/network/crypto-config/*
@@ -75,6 +79,15 @@ c5/composite-key/network/artifact/*
 c5/composite-key/network/crypto-config/*
 c5/composite-key/network/data/*
 c5/composite-key/network/log/*
+
+c5/couchdb-demo/application/.gradle/*
+c5/couchdb-demo/application/build/*
+c5/couchdb-demo/chaincode/.gradle/*
+c5/couchdb-demo/chaincode/build/*
+c5/couchdb-demo/network/artifact/*
+c5/couchdb-demo/network/crypto-config/*
+c5/couchdb-demo/network/data/*
+c5/couchdb-demo/network/log/*
 
 c5/event-service/application/.gradle/*
 c5/event-service/application/build/*
