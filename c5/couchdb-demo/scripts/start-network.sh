@@ -56,3 +56,4 @@ start_org1_peer0
 
 echo 'All nodes started. Press ctrl+c to shutdown...'
 cat
+
