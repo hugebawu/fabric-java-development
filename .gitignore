@@ -84,6 +84,13 @@ c5/composite-key/network/log/*
 
 c5/couchdb-demo/chaincode/.gradle/*
 c5/couchdb-demo/chaincode/build/*
+
+c5/couchdb-demo/application/.gradle/*
+c5/couchdb-demo/application/build/*
+c5/couchdb-demo/chaincode/.gradle/*
+c5/couchdb-demo/chaincode/build/*
+c5/couchdb-demo/network/artifact/*
+
 c5/couchdb-demo/network/crypto-config/*
 c5/couchdb-demo/network/data/*
 c5/couchdb-demo/network/log/*
